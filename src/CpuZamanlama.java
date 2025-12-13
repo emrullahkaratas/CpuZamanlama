@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-class Process {
+class Process1 {
     String id;
     int arrivalTime;
     int burstTime;
@@ -17,7 +17,7 @@ class Process {
     int turnaroundTime;
     int waitingTime;
 
-    public Process(String id, int arrivalTime, int burstTime, String priority) {
+    public void Process(String id, int arrivalTime, int burstTime, String priority) {
         this.id = id;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
@@ -25,26 +25,30 @@ class Process {
     }
 }
 
+
 public class CpuZamanlama extends JFrame {
+
 
     private DefaultTableModel tableModel;
     private JLabel resultLabel;
 
     public CpuZamanlama() {
-        setTitle("FCFS İşlemci Zamanlayıcı - Emrullah");
-        setSize(800, 600); 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+
+        setTitle("First come First served");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
 
         String[] columnNames = {"Process ID", "Arrival Time", "Burst Time", "Priority", "Completion", "Turnaround", "Waiting"};
         tableModel = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(tableModel);
 
-        
+
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        
+
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.LIGHT_GRAY);
         resultLabel = new JLabel("Hesaplanıyor...");
@@ -52,114 +56,218 @@ public class CpuZamanlama extends JFrame {
         bottomPanel.add(resultLabel);
         add(bottomPanel, BorderLayout.SOUTH);
 
-       
         processData();
     }
 
     private void processData() {
-       
+
         String csvData = """
 Process_ID,Arrival_Time,CPU_Burst_Time,Priority
-P001,0,4,high
-P002,2,7,normal
-P003,4,10,low
-P004,6,13,high
-P005,8,16,normal
-P006,10,19,low
-P007,12,2,high
-P008,14,5,normal
-P009,16,8,low
-P010,18,11,high
-P011,20,14,normal
-P012,22,17,low
-P013,24,20,high
-P014,26,3,normal
-P015,28,6,low
-P016,30,9,high
-P017,32,12,normal
-P018,34,15,low
-P019,36,18,high
-P020,38,1,normal
-P021,40,4,low
-P022,42,7,high
-P023,44,10,normal
-P024,46,13,low
-P025,48,16,high
-P026,50,19,normal
-P027,52,2,low
-P028,54,5,high
-P029,56,8,normal
-P030,58,11,low
-P031,60,14,high
-P032,62,17,normal
-P033,64,20,low
-P034,66,3,high
-P035,68,6,normal
-P036,70,9,low
-P037,72,12,high
-P038,74,15,normal
-P039,76,18,low
-P040,78,1,high
-P041,80,4,normal
-P042,82,7,low
-P043,84,10,high
-P044,86,13,normal
-P045,88,16,low
-P046,90,19,high
-P047,92,2,normal
-P048,94,5,low
-P049,96,8,high
-P050,98,11,normal
-P051,100,14,low
-P052,102,17,high
-P053,104,20,normal
-P054,106,3,low
-P055,108,6,high
-P056,110,9,normal
-P057,112,12,low
-P058,114,15,high
-P059,116,18,normal
-P060,118,1,low
-P061,120,4,high
-P062,122,7,normal
-P063,124,10,low
-P064,126,13,high
-P065,128,16,normal
-P066,130,19,low
-P067,132,2,high
-P068,134,5,normal
-P069,136,8,low
-P070,138,11,high
-P071,140,14,normal
-P072,142,17,low
-P073,144,20,high
-P074,146,3,normal
-P075,148,6,low
-P076,150,9,high
-P077,152,12,normal
-P078,154,15,low
-P079,156,18,high
-P080,158,1,normal
-P081,160,4,low
-P082,162,7,high
-P083,164,10,normal
-P084,166,13,low
-P085,168,16,high
-P086,170,19,normal
-P087,172,2,low
-P088,174,5,high
-P089,176,8,normal
-P090,178,11,low
-P091,180,14,high
-P092,182,17,normal
-P093,184,20,low
-P094,186,3,high
-P095,188,6,normal
-P096,190,9,low
-P097,192,12,high
-P098,194,15,normal
-P099,196,18,low
-P100,198,1,high
+P001,0,1,high
+P002,2,2,normal
+P003,4,3,low
+P004,6,4,high
+P005,8,5,normal
+P006,10,6,low
+P007,12,7,high
+P008,14,8,normal
+P009,16,9,low
+P010,18,10,high
+P011,20,11,normal
+P012,22,12,low
+P013,24,13,high
+P014,26,14,normal
+P015,28,15,low
+P016,30,16,high
+P017,32,17,normal
+P018,34,18,low
+P019,36,19,high
+P020,38,20,normal
+P021,40,1,low
+P022,42,2,high
+P023,44,3,normal
+P024,46,4,low
+P025,48,5,high
+P026,50,6,normal
+P027,52,7,low
+P028,54,8,high
+P029,56,9,normal
+P030,58,10,low
+P031,60,11,high
+P032,62,12,normal
+P033,64,13,low
+P034,66,14,high
+P035,68,15,normal
+P036,70,16,low
+P037,72,17,high
+P038,74,18,normal
+P039,76,19,low
+P040,78,20,high
+P041,80,1,normal
+P042,82,2,low
+P043,84,3,high
+P044,86,4,normal
+P045,88,5,low
+P046,90,6,high
+P047,92,7,normal
+P048,94,8,low
+P049,96,9,high
+P050,98,10,normal
+P051,100,11,low
+P052,102,12,high
+P053,104,13,normal
+P054,106,14,low
+P055,108,15,high
+P056,110,16,normal
+P057,112,17,low
+P058,114,18,high
+P059,116,19,normal
+P060,118,20,low
+P061,120,1,high
+P062,122,2,normal
+P063,124,3,low
+P064,126,4,high
+P065,128,5,normal
+P066,130,6,low
+P067,132,7,high
+P068,134,8,normal
+P069,136,9,low
+P070,138,10,high
+P071,140,11,normal
+P072,142,12,low
+P073,144,13,high
+P074,146,14,normal
+P075,148,15,low
+P076,150,16,high
+P077,152,17,normal
+P078,154,18,low
+P079,156,19,high
+P080,158,20,normal
+P081,160,1,low
+P082,162,2,high
+P083,164,3,normal
+P084,166,4,low
+P085,168,5,high
+P086,170,6,normal
+P087,172,7,low
+P088,174,8,high
+P089,176,9,normal
+P090,178,10,low
+P091,180,11,high
+P092,182,12,normal
+P093,184,13,low
+P094,186,14,high
+P095,188,15,normal
+P096,190,16,low
+P097,192,17,high
+P098,194,18,normal
+P099,196,19,low
+P100,198,20,high
+P101,200,1,normal
+P102,202,2,low
+P103,204,3,high
+P104,206,4,normal
+P105,208,5,low
+P106,210,6,high
+P107,212,7,normal
+P108,214,8,low
+P109,216,9,high
+P110,218,10,normal
+P111,220,11,low
+P112,222,12,high
+P113,224,13,normal
+P114,226,14,low
+P115,228,15,high
+P116,230,16,normal
+P117,232,17,low
+P118,234,18,high
+P119,236,19,normal
+P120,238,20,low
+P121,240,1,high
+P122,242,2,normal
+P123,244,3,low
+P124,246,4,high
+P125,248,5,normal
+P126,250,6,low
+P127,252,7,high
+P128,254,8,normal
+P129,256,9,low
+P130,258,10,high
+P131,260,11,normal
+P132,262,12,low
+P133,264,13,high
+P134,266,14,normal
+P135,268,15,low
+P136,270,16,high
+P137,272,17,normal
+P138,274,18,low
+P139,276,19,high
+P140,278,20,normal
+P141,280,1,low
+P142,282,2,high
+P143,284,3,normal
+P144,286,4,low
+P145,288,5,high
+P146,290,6,normal
+P147,292,7,low
+P148,294,8,high
+P149,296,9,normal
+P150,298,10,low
+P151,300,11,high
+P152,302,12,normal
+P153,304,13,low
+P154,306,14,high
+P155,308,15,normal
+P156,310,16,low
+P157,312,17,high
+P158,314,18,normal
+P159,316,19,low
+P160,318,20,high
+P161,320,1,normal
+P162,322,2,low
+P163,324,3,high
+P164,326,4,normal
+P165,328,5,low
+P166,330,6,high
+P167,332,7,normal
+P168,334,8,low
+P169,336,9,high
+P170,338,10,normal
+P171,340,11,low
+P172,342,12,high
+P173,344,13,normal
+P174,346,14,low
+P175,348,15,high
+P176,350,16,normal
+P177,352,17,low
+P178,354,18,high
+P179,356,19,normal
+P180,358,20,low
+P181,360,1,high
+P182,362,2,normal
+P183,364,3,low
+P184,366,4,high
+P185,368,5,normal
+P186,370,6,low
+P187,372,7,high
+P188,374,8,normal
+P189,376,9,low
+P190,378,10,high
+P191,380,11,normal
+P192,382,12,low
+P193,384,13,high
+P194,386,14,normal
+P195,388,15,low
+P196,390,16,high
+P197,392,17,normal
+P198,394,18,low
+P199,396,19,high
+P200,398,20,normal
+
+
+
+
+
 """;
 
         List<Process> processes = parseCSV(csvData);
@@ -167,12 +275,11 @@ P100,198,1,high
         updateTable(processes);
     }
 
-   
 
     private List<Process> parseCSV(String data) {
         List<Process> list = new ArrayList<>();
         Scanner scanner = new Scanner(data);
-        if (scanner.hasNextLine()) scanner.nextLine(); 
+        if (scanner.hasNextLine()) scanner.nextLine();
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -201,7 +308,6 @@ P100,198,1,high
         }
     }
 
-
     private void updateTable(List<Process> processes) {
         double totalWait = 0;
         double totalTurnaround = 0;
@@ -210,7 +316,6 @@ P100,198,1,high
             totalWait += p.waitingTime;
             totalTurnaround += p.turnaroundTime;
 
-        
             Object[] rowData = {
                     p.id,
                     p.arrivalTime,
@@ -223,16 +328,14 @@ P100,198,1,high
             tableModel.addRow(rowData);
         }
 
-        
         double avgTat = totalTurnaround / processes.size();
         double avgWt = totalWait / processes.size();
 
         resultLabel.setText(String.format("Ortalama Turnaround Time: %.2f  |  Ortalama Waiting Time: %.2f", avgTat, avgWt));
     }
 
-
     public static void main(String[] args) {
-        
+
         SwingUtilities.invokeLater(() -> {
             CpuZamanlama gui = new CpuZamanlama();
             gui.setVisible(true);
