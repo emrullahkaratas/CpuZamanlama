@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// --- Veri Yapısı (Process Sınıfı) ---
+
 class Process {
     String id;
     int arrivalTime;
@@ -25,31 +25,26 @@ class Process {
     }
 }
 
-// --- Ana Pencere Sınıfı ---
 public class CpuZamanlama extends JFrame {
 
-    // Tablo modeli (Verileri tutan yapı)
     private DefaultTableModel tableModel;
-    // Alt kısımdaki bilgi etiketi
     private JLabel resultLabel;
 
     public CpuZamanlama() {
-        // 1. Pencere Ayarları
         setTitle("FCFS İşlemci Zamanlayıcı - Emrullah");
-        setSize(800, 600); // Pencere boyutu
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Çarpıya basınca programı kapat
+        setSize(800, 600); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         setLayout(new BorderLayout());
 
-        // 2. Tabloyu Oluştur
         String[] columnNames = {"Process ID", "Arrival Time", "Burst Time", "Priority", "Completion", "Turnaround", "Waiting"};
         tableModel = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(tableModel);
 
-        // Tabloyu kaydırılabilir panel içine koy (Veri çok olduğu için scroll şart)
+        
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        // 3. Alt Bilgi Paneli (Ortalamalar için)
+        
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.LIGHT_GRAY);
         resultLabel = new JLabel("Hesaplanıyor...");
@@ -57,12 +52,12 @@ public class CpuZamanlama extends JFrame {
         bottomPanel.add(resultLabel);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        // 4. Verileri İşle ve Tabloya Yükle
+       
         processData();
     }
 
     private void processData() {
-        // Senin verdiğin ham veri seti
+       
         String csvData = """
 Process_ID,Arrival_Time,CPU_Burst_Time,Priority
 P001,0,4,high
@@ -172,12 +167,12 @@ P100,198,1,high
         updateTable(processes);
     }
 
-    // --- Önceki Koddan Aldığımız Mantık Metodları ---
+   
 
     private List<Process> parseCSV(String data) {
         List<Process> list = new ArrayList<>();
         Scanner scanner = new Scanner(data);
-        if (scanner.hasNextLine()) scanner.nextLine(); // Başlığı atla
+        if (scanner.hasNextLine()) scanner.nextLine(); 
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -206,7 +201,7 @@ P100,198,1,high
         }
     }
 
-    // Tabloyu dolduran ve ortalamayı hesaplayan metod
+
     private void updateTable(List<Process> processes) {
         double totalWait = 0;
         double totalTurnaround = 0;
@@ -215,7 +210,7 @@ P100,198,1,high
             totalWait += p.waitingTime;
             totalTurnaround += p.turnaroundTime;
 
-            // Satırı tabloya ekle
+        
             Object[] rowData = {
                     p.id,
                     p.arrivalTime,
@@ -228,16 +223,16 @@ P100,198,1,high
             tableModel.addRow(rowData);
         }
 
-        // Alt kısımdaki etiketi güncelle
+        
         double avgTat = totalTurnaround / processes.size();
         double avgWt = totalWait / processes.size();
 
         resultLabel.setText(String.format("Ortalama Turnaround Time: %.2f  |  Ortalama Waiting Time: %.2f", avgTat, avgWt));
     }
 
-    // --- Main Metodu: Programı Başlatır ---
+
     public static void main(String[] args) {
-        // Pencereyi güvenli bir thread içinde aç
+        
         SwingUtilities.invokeLater(() -> {
             CpuZamanlama gui = new CpuZamanlama();
             gui.setVisible(true);
