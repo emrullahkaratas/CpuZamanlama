@@ -1,1 +1,34 @@
+CPU ZAMANLAMA KULLANICI KILAVUZU
+
+
+1. Uygulamayı çalıştırmak için ilgili dosyayı açın.
+
+2.  UYGULAMANIN AMACI
+
+-   CPU zamanlama algoritmalarını göstermek
+-   Process sıralamasını görselleştirmek
+-   Algoritmaların çalışma mantığını öğretmek
+
+3.  DESTEKLENEN ALGORİTMALAR
+
+-   FCFS (First Come First Served)
+-   SJF (Shortest Job First)
+-   Priority Scheduling
+-   Round Robin
+
+4.  KULLANIM ADIMLARI
+
+     * Uygulamayı başlatın.
+
+     * Process bilgilerini girin (PID, varış zamanı, burst time, öncelik).
+
+     * Kullanılacak zamanlama algoritmasını seçin.
+
+5.   ÇIKTILAR
+
+-   Ortalama bekleme süresi
+-   Ortalama turnaround süresi
+-   Process çalışma sırası
+
+
 
