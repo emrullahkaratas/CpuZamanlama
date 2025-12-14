@@ -29,7 +29,7 @@ public class NonPreemtiveShortestjJobFirst extends JFrame {
     private JLabel resultLabel;
 
     public NonPreemtiveShortestjJobFirst() {
-        setTitle("Non-Preemptive SJF (Shortest Job First) - Emrullah");
+        setTitle("Non-Preemptive Shortest Job First");
         setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
